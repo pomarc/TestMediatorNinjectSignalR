@@ -1,0 +1,15 @@
+﻿using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using WebAppMediatr.Models;
+
+namespace WebAppMediatr.Messages
+{
+    public class QuotesGetQuotesRequest : IRequest<List<Quote>>
+    {
+        public int Id { get; set; }
+
+    }
+}

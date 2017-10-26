@@ -1,0 +1,82 @@
+﻿@model WebAppMediatr.Models.ProfileViewModel
+
+ 
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Profilo</title>
+</head>
+<body>
+ 
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>ProfileViewModel</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    
+                   Nome: @Html.TextBoxFor(m => m.profile.name)
+                    <div>
+                        <strong>stato salvataggio:</strong>
+                        id:  @if (Model != null)
+                        {
+                            @Model.profile.Id
+                        }
+                        else
+                        {
+
+
+                            <span>Non salvato</span>
+
+                        }
+
+                    </div>
+
+                    
+                    
+                        <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    <div class="container">
+    
+        <ul id="discussion"></ul>
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+
+
+        <script type="text/javascript">
+        $(function () {
+            // Declare a proxy to reference the hub.
+            var chat = $.connection.sRHub;
+            // Create a function that the hub can call to broadcast messages.
+            chat.client.broadcastMessage = function (name, message) {
+                // Html encode display name and message.
+                var encodedName = $('<div />').text(name).html();
+                var encodedMsg = $('<div />').text(message).html();
+                // Add the message to the page.
+                $('#discussion').append('<li><strong>' + encodedName
+                    + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+            };
+          
+ 
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                 
+            });
+        });
+        </script>
+    </div>
+</body>
+</html>

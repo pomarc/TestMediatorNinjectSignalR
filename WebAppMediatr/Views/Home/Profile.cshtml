@@ -1,0 +1,62 @@
+﻿@model WebAppMediatr.Models.ProfileViewModel
+
+ 
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h1>Profilo</h1>
+            <hr />
+           
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                   <span class="form-label">Id </span><span>@Model.profile.Id</span>
+                </div>
+                <div class="col-md-offset-2 col-md-10">
+                    <span>Nome </span><span>@Model.profile.name</span>
+                </div>
+                <div class="col-md-offset-2 col-md-10">
+                    <span>Età </span><span>@Model.profile.Age</span>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+
+                        <th>Auto</th>
+
+                        <th>Costo</th>
+                    </tr>
+                </thead>
+                @foreach (var quote in Model.quotes)
+                {
+
+                    <tr><td>@quote.Id</td><td>@quote.Car</td><td>@quote.Price</td></tr>
+                }
+            </table>
+           
+
+
+        </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>
