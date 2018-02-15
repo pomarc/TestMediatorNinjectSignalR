@@ -79,7 +79,7 @@ namespace WebAppMediatr.App_Start
             /// <param name="kernel">The kernel.</param>
             private static void RegisterServices(IKernel kernel)
             {
-            kernel.Bind<IProfileService>().To<ProfileServiceUno>();
+            
             kernel.Bind<IRequestHandler<ProfileSaveRequest, Profile>>().To<ProfileServiceUno>();
         //    kernel.Bind<IRequestHandler<ProfileSaveRequest, Profile>>().To<ProfileServiceDue>();
             kernel.Bind<IRequestHandler<ProfileGetRequest, Profile>>().To<ProfileServiceUno>();
@@ -89,8 +89,8 @@ namespace WebAppMediatr.App_Start
             kernel.Bind<IAsyncNotificationHandler<ProfileSavedNotification>>().To<RemoteWSService>();
 
             kernel.Bind<IMediator>().To<Mediator>();
-         
-
+              kernel.Bind<IRequestHandler<ProfileGetRequest, Profile>>().To<ProfileServiceUno>();
+            kernel.Bind<IProfileService>().To<ProfileServiceUno>();
             kernel.Bind<SingleInstanceFactory>().ToMethod(ctx => t => ctx.Kernel.TryGet(t));
             kernel.Bind<MultiInstanceFactory>().ToMethod(ctx => t => ctx.Kernel.GetAll(t));
 
